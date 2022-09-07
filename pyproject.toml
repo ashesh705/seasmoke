@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "seasmoke"
+version = "0.1.0"
+description = ""
+authors = ["Ashesh Anand <62696185+ashesh705@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
