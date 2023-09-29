@@ -1,0 +1,26 @@
+name: Lint
+
+on: [ push, pull_request ]
+
+jobs:
+    Lint:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-python@v4
+                with:
+                    python-version: '3.11'
+            -   uses: snok/install-poetry@v1
+            -   name: Version Check
+                run: |
+                    python --version
+                    poetry --version
+            -   name: Install Dependencies
+                run: |
+                    poetry install
+            -   name: Check Lint
+                run: |
+                    poetry run task lint-check

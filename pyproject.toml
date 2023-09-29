@@ -1,0 +1,75 @@
+[tool.poetry]
+name = "seasmoke"
+version = "0.1.0"
+description = "CLI to import daily NAVs for mutual funds"
+authors = ["Ashesh Anand <62696185+ashesh705@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.15.0"
+black = "^23.9.1"
+mypy = "^1.5.1"
+pre-commit = "^3.4.0"
+taskipy = "^1.12.0"
+ruff = "^0.0.291"
+pytest = "^7.4.2"
+pytest-cov = "^4.1.0"
+pytest-sugar = "^0.9.7"
+pytest-asyncio = "^0.21.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+strict_equality = true
+
+[tool.taskipy.tasks]
+format-check = { cmd = "black --check . && ruff check .", help = "Check code for any formatting issues" }
+format = { cmd = "ruff check --fix . && black .", help = "Fix all code formatting issues" }
+lint-check = { cmd = "mypy . && ruff check .", help = "Check code for any lint issues" }
+test = { cmd = "python -m pytest --cov", help = "Run all unit tests and produce coverage reports" }
+
+[tool.pytest.ini_options]
+addopts = "-ra -v -W error"
+testpaths = [
+    "tests",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+branch = true
+source = [
+    "seasmoke"
+]
+omit = [
+    "__main__.py"
+]
+
+[tool.coverage.report]
+skip_empty = true
+
+[tool.ruff]
+target-version = "py311"
+select = [
+    "ALL"
+]
+ignore = [
+    "D203",
+    "D212"
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = [
+    "D104"
+]
+"tests/*.py" = [
+    "S101"
+]
